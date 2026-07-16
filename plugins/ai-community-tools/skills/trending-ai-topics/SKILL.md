@@ -15,6 +15,8 @@ description: >
 - `--dry-run` : Slack投稿せず、整形済みメッセージの表示のみで終了
 - `--count N` : 投稿するトピック数（デフォルト: 3件）
 - `--digest` : 話題ごとの個別投稿ではなく、全話題を1メッセージにまとめて投稿
+- `--clipboard` : Webhookで投稿せず、digest形式の整形済みメッセージをクリップボードにコピーする
+  （手動投稿用。Webhookが使えない環境のフォールバック）
 
 ## 手順
 
@@ -90,8 +92,15 @@ done
 
 - 投稿前に必ず全メッセージをログに出す（プレビュー）
 - `--dry-run` 時はここで終了し、curl を実行しない
-- `SLACK_WEBHOOK_URL` が未設定なら投稿せず、その旨を伝えて dry-run 扱いで終了
+- `--clipboard` 時は digest 形式で整形し、`pbcopy`（macOS）/ `clip`（Windows）でクリップボードに
+  コピーして終了。ユーザーが手でSlackに貼る
+- `SLACK_WEBHOOK_URL` が未設定なら投稿せず、その旨を伝えて `--clipboard` 相当の動作にフォールバックする
 - Webhook URL 自体を出力・ログ・コミットしない
+
+> 補足: Webhook URL は Slack App の Incoming Webhook でも、Workflow Builder の
+> Webhookトリガーで発行したURLでもよい。後者はペイロード形式がワークフロー側の
+> 変数定義に依存するため、投稿が失敗する場合は `{"text": "..."}` のキー名を
+> ワークフローの変数名に合わせること。
 
 > 補足: Incoming Webhook はレスポンスに `ts` を返さないため、「親メッセージのスレッドに各話題をぶら下げる」構成は取れない。必要になったら Slack App（bot token + `chat.postMessage`）に移行する。
 
