@@ -1,0 +1,8 @@
+{
+  "name": "ai-community-tools",
+  "description": "AIコミュニティ運営を自動化するスキル集。実行時点のAIトレンドを収集してSlackに投稿する trending-ai-topics などを含む。",
+  "version": "0.1.0",
+  "author": {
+    "name": "Masaki Ito"
+  }
+}

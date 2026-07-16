@@ -1,0 +1,13 @@
+{
+  "name": "ai-skills",
+  "owner": {
+    "name": "Masaki Ito"
+  },
+  "plugins": [
+    {
+      "name": "ai-community-tools",
+      "source": "./plugins/ai-community-tools",
+      "description": "AIコミュニティ運営を自動化するスキル集（トレンド話題の収集・Slack投稿など）"
+    }
+  ]
+}
